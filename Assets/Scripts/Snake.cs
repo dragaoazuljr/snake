@@ -1,12 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Snake : MonoBehaviour
 {
     [SerializeField] private Rigidbody SnakeRigedBody = null;
     [SerializeField] private GameObject foodSpawn;
     [SerializeField] private GameObject body;
+    [SerializeField] private GameObject scoreText;
  
     private GameObject food;
     private GameObject[] tail = new GameObject[100];
@@ -35,16 +38,24 @@ public class Snake : MonoBehaviour
 
         if(Input.GetAxis("Horizontal") > 0)
         {
-            snakeMoviment = new Vector2(0.5f, 0);
+            if(snakeMoviment.x != -0.5f) {
+                snakeMoviment = new Vector2(0.5f, 0);
+            }
         } else if (Input.GetAxis("Horizontal") < 0)
         {
-            snakeMoviment = new Vector2(-0.5f, 0);
+            if(snakeMoviment.x != 0.5f) {
+                snakeMoviment = new Vector2(-0.5f, 0);
+            }
         } else if (Input.GetAxis("Vertical") > 0)
         {
-            snakeMoviment = new Vector2(0, 0.5f);
+            if(snakeMoviment.y != -0.5f) {
+                snakeMoviment = new Vector2(0, 0.5f);
+            }
         } else if (Input.GetAxis("Vertical") < 0)
         {
-            snakeMoviment = new Vector2(0, -0.5f);
+            if(snakeMoviment.y != 0.5f) {
+                snakeMoviment = new Vector2(0, -0.5f);
+            }
         }
     }
 
@@ -76,12 +87,18 @@ public class Snake : MonoBehaviour
                 addTail(); 
             } 
             spawnFood();
+            updateScore();
         }
 
         if(other.gameObject.tag == "Body" && other.gameObject.GetComponent<SnakeBody>().index != 0)
         {
             restartGame();
         }
+    }
+
+    private void updateScore()
+    {
+        scoreText.GetComponent<TMP_Text>().text = "Score: " + tailLength;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -94,9 +111,9 @@ public class Snake : MonoBehaviour
 
     private void restartGame()
     {
-        // snakeSpeed = 0.5f;
+        snakeSpeed = 0.5f;
         snakeMoviment = new Vector2(0, 0.5f);
-        transform.position = new Vector3(0, 0, 0);
+        transform.position = new Vector3(0, 0, 2);
         for(int i = 0; i < tail.Length; i++)
         {
             if(tail[i] != null)
@@ -116,14 +133,30 @@ public class Snake : MonoBehaviour
 
     private void spawnFood()
     {
-        food = Instantiate(foodSpawn, new Vector3(10, 10, 0), Quaternion.identity);
+        food = Instantiate(foodSpawn, new Vector3(10, 10, 2), Quaternion.identity);
     }
 
     private void addTail()
     {
-        GameObject lastTaill = tailLength > 0 ? tail[tailLength - 1]: null;
-        Vector3 lastTailPos = lastTaill != null ? lastTaill.transform.position + new Vector3(0, -0.5f) : transform.localPosition - snakeMoviment;
-        GameObject newTail = Instantiate(body, lastTailPos, Quaternion.identity);
+        Vector3[] lastTwoTailsPostitions = new Vector3[2];
+        for(int i = 0; i < 2; i++)
+        {
+            if(tail[i] != null)
+            {
+                lastTwoTailsPostitions[i] = tail[i].transform.position;
+            } else {
+                lastTwoTailsPostitions[i] = transform.position;
+            }
+        }
+
+        Vector3 lastTwoTailsVector = lastTwoTailsPostitions[1] - lastTwoTailsPostitions[0];
+        Vector3 newTailPosition = lastTwoTailsPostitions[1] + lastTwoTailsVector; 
+
+        // GameObject lastTaill = tailLength > 0 ? tail[tailLength - 1]: null;
+        // Vector3 lastTailPos = lastTaill != null ? lastTaill.transform.position + new Vector3(0, -0.5f) : transform.localPosition - snakeMoviment;
+        
+        GameObject newTail = Instantiate(body, newTailPosition, Quaternion.identity);
+        
         newTail.GetComponent<SnakeBody>().index = tailLength;
         tail[tailLength] = newTail;
         tailLength++;

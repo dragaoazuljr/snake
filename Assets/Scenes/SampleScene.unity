@@ -218,6 +218,7 @@ GameObject:
   - component: {fileID: 280221481}
   - component: {fileID: 280221483}
   - component: {fileID: 280221482}
+  - component: {fileID: 280221484}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -342,6 +343,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 280221480}
   m_CullTransparentMesh: 1
+--- !u!114 &280221484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 280221480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 014ae79542a60d2c6918ae23f6cbe92e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &327080135
 GameObject:
   m_ObjectHideFlags: 0
@@ -883,6 +896,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2985410753073254761, guid: 5f6b5435faddd49dca6a5ca05ee47856, type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 280221480}
     - target: {fileID: 3983470037264157826, guid: 5f6b5435faddd49dca6a5ca05ee47856, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -926,6 +943,22 @@ PrefabInstance:
     - target: {fileID: 3983470037264157826, guid: 5f6b5435faddd49dca6a5ca05ee47856, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4486695404340007899, guid: 5f6b5435faddd49dca6a5ca05ee47856, type: 3}
+      propertyPath: m_Size.x
+      value: 0.7768684
+      objectReference: {fileID: 0}
+    - target: {fileID: 4486695404340007899, guid: 5f6b5435faddd49dca6a5ca05ee47856, type: 3}
+      propertyPath: m_Size.y
+      value: 0.99604183
+      objectReference: {fileID: 0}
+    - target: {fileID: 4486695404340007899, guid: 5f6b5435faddd49dca6a5ca05ee47856, type: 3}
+      propertyPath: m_Center.x
+      value: -0.017913789
+      objectReference: {fileID: 0}
+    - target: {fileID: 4486695404340007899, guid: 5f6b5435faddd49dca6a5ca05ee47856, type: 3}
+      propertyPath: m_Center.y
+      value: 0.0019790828
       objectReference: {fileID: 0}
     - target: {fileID: 8359953137700849833, guid: 5f6b5435faddd49dca6a5ca05ee47856, type: 3}
       propertyPath: m_Name
